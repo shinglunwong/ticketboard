@@ -1,0 +1,12 @@
+{
+  "name": "codes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently -n 'backend,fronted' -c 'green,cyan'  \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
