@@ -8,6 +8,7 @@ import UserDetailPage from "./pages/UserDetailPage";
 import ProjectListPage from "./pages/ProjectListPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import TicketListPage from "./pages/TicketListPage";
+import TicketDetailPage from "./pages/TicketDetailPage";
 
 export default function App() {
   return (
@@ -61,6 +62,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <TicketListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/projects/:projectId/tickets/:ticketId"
+          element={
+            <ProtectedRoute>
+              <TicketDetailPage />
             </ProtectedRoute>
           }
         />

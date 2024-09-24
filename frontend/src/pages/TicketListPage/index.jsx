@@ -16,7 +16,12 @@ import { IconArrowBack, IconPlus } from "@tabler/icons-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFetchTickets } from "./hooks";
 import { useState, useEffect } from "react";
-import { ticketFilterOptions, ticketSortOptions, ticketStatusOptions } from "../../consts/options";
+import {
+  ticketPriorityOptions,
+  ticketSortOptions,
+  ticketStatusOptions,
+  ticketTypeOptions,
+} from "../../consts/options";
 
 const TicketListPage = () => {
   const navigate = useNavigate();
@@ -26,7 +31,7 @@ const TicketListPage = () => {
   const { data: tickets, isLoading, isError } = useFetchTickets(projectId);
 
   const handleCreateTicket = () => {
-    navigate("/tickets/create");
+    navigate(`/projects/${projectId}/tickets/create`);
   };
 
   // State for sorting and filtering
@@ -86,7 +91,7 @@ const TicketListPage = () => {
     <Container size="xl" my={40}>
       <Group mb="md" justify="space-between">
         <Group>
-          <Button variant="subtle" color="gray" onClick={() => navigate(-1)}>
+          <Button variant="subtle" color="gray" onClick={() => navigate(`/projects/`)}>
             <IconArrowBack size={16} />
           </Button>
           <Title order={2}>Tickets</Title>
@@ -99,7 +104,7 @@ const TicketListPage = () => {
       <Stack spacing="md" mb="lg">
         <Group spacing="md">
           <Select
-            label="Sort By"
+            // label="Sort By"
             placeholder="Select sort option"
             clearable
             data={ticketSortOptions}
@@ -108,7 +113,7 @@ const TicketListPage = () => {
             style={{ flex: 1 }}
           />
           <Select
-            label="Filter By Status"
+            // label="Filter By Status"
             placeholder="Select status"
             clearable
             data={ticketStatusOptions}
@@ -131,11 +136,20 @@ const TicketListPage = () => {
               <Group position="apart" mb="sm">
                 <Group spacing="xs">
                   <Badge
-                    color={getPriorityColor(ticket.priority)}
-                  >{`Priority ${ticket.priority}`}</Badge>
-                  <Badge color={getStatusColor(ticket.status)}>{ticket.status}</Badge>
-                  <Badge color="gray">{`${ticket.estimated_hours} hrs`}</Badge>
-                  <Badge color="blue">{ticket.type}</Badge>
+                    color={getOptionColor(ticket.priority, ticketPriorityOptions)}
+                    variant="light"
+                  >
+                    {`Priority ${ticket.priority}`}
+                  </Badge>
+                  <Badge color={getOptionColor(ticket.status, ticketStatusOptions)} variant="light">
+                    {formatLabel(ticket.status, ticketStatusOptions)}
+                  </Badge>
+                  <Badge color="gray" variant="light">
+                    {`${ticket.estimated_hours} hrs`}
+                  </Badge>
+                  <Badge color={getOptionColor(ticket.type, ticketTypeOptions)} variant="light">
+                    {formatLabel(ticket.type, ticketTypeOptions)}
+                  </Badge>
                 </Group>
               </Group>
               {/* Title */}
@@ -143,16 +157,14 @@ const TicketListPage = () => {
                 {ticket.title}
               </Text>
               {/* Description */}
-              <Text size="sm" color="dimmed">
-                {ticket.description}
-              </Text>
+              <Text size="sm">{ticket.description}</Text>
               {/* Bottom Right: View Details Button */}
               <Group position="right" mt="md">
                 <Button
                   variant="light"
                   color="blue"
                   size="sm"
-                  onClick={() => navigate(`/tickets/${ticket.id}`)}
+                  onClick={() => navigate(`/projects/${projectId}/tickets/${ticket.id}`)}
                 >
                   View Details
                 </Button>
@@ -165,30 +177,13 @@ const TicketListPage = () => {
   );
 };
 
-const getStatusColor = (status) => {
-  switch (status.toLowerCase()) {
-    case "open":
-      return "green";
-    case "in progress":
-      return "blue";
-    case "closed":
-      return "gray";
-    default:
-      return "dark";
-  }
+const getOptionColor = (value, options) => {
+  const option = options.find((opt) => opt.value.toString() === value.toString());
+  return option ? option.color : "gray";
 };
-
-const getPriorityColor = (priority) => {
-  switch (priority) {
-    case 1:
-      return "red";
-    case 2:
-      return "orange";
-    case 3:
-      return "yellow";
-    default:
-      return "gray";
-  }
+const formatLabel = (value, options) => {
+  const option = options.find((opt) => opt.value.toString() === value.toString());
+  return option ? option.label : value;
 };
 
 export default TicketListPage;

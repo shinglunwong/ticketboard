@@ -1,3 +1,5 @@
+import { ticketPriorityOptions, ticketStatusOptions, ticketTypeOptions } from "./options";
+
 export const loginForm = {
     initialValues: {
         email: "admin@example.com",
@@ -48,3 +50,31 @@ export const projectForm = {
             value >= 0 ? null : "Max credit duration must be greater than 0",
     },
 };
+
+export const ticketForm = {
+    initialValues: {
+        title: "",
+        description: "",
+        priority: "",
+        estimated_hours: 0,
+        status: "request",
+        type: "",
+        remarks: "",
+    },
+    validate: {
+        title: (value) => (value ? null : "Title is required"),
+        description: (value) => (value ? null : "Description is required"),
+        priority: (value) =>
+            ticketPriorityOptions.map(e => e.value).includes(value) ? null : "Priority incorrect",
+        estimated_hours: (value) =>
+            Number.isNaN(parseFloat(value)) ? "Estimated hours must be float" : null,
+        status: (value) =>
+            ticketStatusOptions.map(e => e.value).includes(value)
+                ? null
+                : "Status incorrect",
+        type: (value) =>
+            ticketTypeOptions.map(e => e.value).includes(value)
+                ? null
+                : "Type incorrect",
+    },
+}

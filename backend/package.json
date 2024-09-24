@@ -5,9 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "migrate": "knex migrate:latest",
-    "rollback": "knex migrate:rollback",
-    "seed": "knex seed:run",
+    "reset": "cd config && knex migrate:rollback && knex migrate:latest && knex seed:run",
     "test": "NODE_ENV=test jest"
   },
   "jest": {

@@ -33,7 +33,7 @@ app.use(authMiddleware);
 
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
-// tickets routes are nested under projects
+app.use('/api/tickets', ticketRoutes);
 
 // app.use('/api/payments', paymentRoutes);
 // app.use('/api/deployments', deploymentRoutes);

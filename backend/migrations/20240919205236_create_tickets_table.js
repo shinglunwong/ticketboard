@@ -5,7 +5,7 @@ exports.up = function (knex) {
         table.string('title').notNullable();
         table.text('description');
         table.text('remarks');
-        table.integer('priority').notNullable();
+        table.string('priority').notNullable();
         table.decimal('estimated_hours', 5, 2);
         table.string('status').notNullable();
         table.string('type').notNullable();
