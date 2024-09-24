@@ -2,8 +2,9 @@ const projectService = require('../services/projectService');
 const ticketService = require('../services/ticketService');
 
 exports.getAllProjects = async (req, res, next) => {
+    const { user } = req;
     try {
-        const projects = await projectService.getAllProjects();
+        const projects = await projectService.getAllProjects(user);
         res.json({
             message: 'successful',
             projects,
@@ -14,9 +15,10 @@ exports.getAllProjects = async (req, res, next) => {
 };
 
 exports.getProjectById = async (req, res, next) => {
+    const { user } = req;
     try {
         const projectId = req.params.id;
-        const project = await projectService.getProjectById(projectId);
+        const project = await projectService.getProjectById(projectId, user);
         res.json({
             message: 'successful',
             project

@@ -2,6 +2,7 @@
 
 import { Paper, Title, Container, Button, Stack, Divider } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import { getUserRole } from "../../utils/auth";
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -10,6 +11,8 @@ const DashboardPage = () => {
     localStorage.removeItem("token");
     navigate("/login", { replace: true });
   };
+
+  const userRole = getUserRole();
 
   return (
     <Container size={420} my={40}>
@@ -21,11 +24,13 @@ const DashboardPage = () => {
           <Button fullWidth variant="filled" color="blue" onClick={() => navigate("/projects")}>
             Projects
           </Button>
-          <Button fullWidth variant="filled" color="green" onClick={() => navigate("/users")}>
-            Users
-          </Button>
+          {userRole === "admin" && (
+            <Button fullWidth variant="filled" color="green" onClick={() => navigate("/users")}>
+              Users
+            </Button>
+          )}
         </Stack>
-        <Divider mt={20} mb={20} />
+        <Divider my={20} />
         <Button fullWidth variant="light" color="red" onClick={handleLogout}>
           Logout
         </Button>

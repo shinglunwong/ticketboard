@@ -1,5 +1,3 @@
-// src/pages/LoginPage/LoginPage.jsx
-
 import { useForm } from "@mantine/form";
 import { TextInput, PasswordInput, Paper, Title, Container, Button, Group } from "@mantine/core";
 import { IconLogin } from "@tabler/icons-react";
@@ -18,13 +16,9 @@ const LoginPage = () => {
     mutationFn: (values) => axios.post("/auth/login", values),
     onSuccess: ({ data }) => {
       // Handle successful login (e.g., store token, redirect)
-      const { user, token } = data;
+      const { token } = data;
       localStorage.setItem("token", token);
-      if (user.role === "admin") {
-        navigate("/dashboard");
-      } else {
-        navigate("/tickets");
-      }
+      navigate("/dashboard");
     },
     onError: (err) => {
       notifications.show({
@@ -76,7 +70,6 @@ const LoginPage = () => {
             </Button>
           </Group>
         </form>
-        {/* <Divider label="Or continue with" labelPosition="center" my="lg" /> */}
       </Paper>
     </Container>
   );
