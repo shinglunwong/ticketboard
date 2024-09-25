@@ -1,5 +1,3 @@
-// src/pages/DashboardPage/DashboardPage.jsx
-
 import { Paper, Title, Container, Button, Stack, Divider } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { getUserRole } from "../../utils/auth";

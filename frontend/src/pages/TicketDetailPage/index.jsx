@@ -7,7 +7,7 @@ import {
   Group,
   Stack,
   Select,
-  NumberInput,
+  Textarea,
   Loader,
   Center,
 } from "@mantine/core";
@@ -15,20 +15,18 @@ import { useForm } from "@mantine/form";
 import { IconArrowBack, IconCheck, IconTrash } from "@tabler/icons-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ticketForm } from "../../consts/forms";
-import {
-  ticketPriorityOptions,
-  ticketStatusOptions,
-  ticketTypeOptions,
-} from "../../consts/options";
+import { ticketPriorityOptions, ticketTypeOptions } from "../../consts/options";
 import { useEffect, useState } from "react";
 import { useDeleteTicket, useFetchTicket, useUpdateTicket, useCreateTicket } from "./hooks";
 import ConfirmationModal from "../../components/ConfirmationModal";
+import { getUserRole } from "../../utils/auth";
 
 const TicketDetailPage = () => {
   const navigate = useNavigate();
   const { projectId, ticketId } = useParams();
 
   const isCreateMode = ticketId === "create";
+  const role = getUserRole();
 
   // Fetch ticket data only if not in create mode
   const { data: ticket, isLoading, isError } = useFetchTicket(ticketId);
@@ -95,8 +93,26 @@ const TicketDetailPage = () => {
 
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack spacing="sm">
-            <TextInput label="Title" required {...form.getInputProps("title")} />
-            <TextInput label="Description" required {...form.getInputProps("description")} />
+            <Select
+              label="Type"
+              placeholder="Select type"
+              data={ticketTypeOptions}
+              required
+              {...form.getInputProps("type")}
+            />
+            <TextInput
+              label="Title"
+              required
+              {...form.getInputProps("title")}
+              disabled={!isCreateMode && role !== "admin"}
+            />
+            <Textarea
+              label="Description"
+              required
+              {...form.getInputProps("description")}
+              autosize
+              minRows={4}
+            />
             <TextInput label="Remarks" {...form.getInputProps("remarks")} />
             <Select
               label="Priority"
@@ -105,7 +121,7 @@ const TicketDetailPage = () => {
               required
               {...form.getInputProps("priority")}
             />
-            <NumberInput
+            {/* <NumberInput
               label="Estimated Hours"
               required
               min={0.1}
@@ -118,17 +134,12 @@ const TicketDetailPage = () => {
               data={ticketStatusOptions}
               required
               {...form.getInputProps("status")}
-            />
-            <Select
-              label="Type"
-              placeholder="Select type"
-              data={ticketTypeOptions}
-              required
-              {...form.getInputProps("type")}
-            />
+            /> */}
           </Stack>
           <Group mt="xl" justify="space-between">
-            {!isCreateMode && (
+            {!isCreateMode && role !== "admin" ? (
+              <div></div>
+            ) : (
               <Button
                 color="red"
                 variant="outline"

@@ -1,5 +1,3 @@
-// src/pages/ProjectListPage/index.jsx
-
 import {
   Container,
   Title,
@@ -16,9 +14,11 @@ import {
 import { IconArrowBack } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useFetchProjects } from "./hooks";
+import { getUserRole } from "../../utils/auth";
 
 const ProjectListPage = () => {
   const navigate = useNavigate();
+  const userRole = getUserRole();
 
   // Fetch projects
   const { data: projects, isLoading, isError } = useFetchProjects();
@@ -59,9 +59,11 @@ const ProjectListPage = () => {
           </Button>
           <Title order={2}>Projects</Title>
         </Group>
-        <Button onClick={handleCreateProject} color="teal">
-          Create Project
-        </Button>
+        {userRole === "admin" && (
+          <Button onClick={handleCreateProject} color="teal">
+            Create Project
+          </Button>
+        )}
       </Group>
 
       {projects.length === 0 ? (
@@ -90,15 +92,19 @@ const ProjectListPage = () => {
               <Badge color={getStatusColor(project.status)} variant="light" mt="md">
                 {project.status}
               </Badge>
-              <Group mt="md">
-                <Button
-                  variant="light"
-                  color="blue"
-                  size="sm"
-                  onClick={() => navigate(`/projects/${project.id}`)}
-                >
-                  View Details
-                </Button>
+              <Group mt="md" justify="space-between">
+                {userRole === "admin" ? (
+                  <Button
+                    variant="light"
+                    color="blue"
+                    size="sm"
+                    onClick={() => navigate(`/projects/${project.id}`)}
+                  >
+                    View Details
+                  </Button>
+                ) : (
+                  <div></div>
+                )}
                 <Button
                   variant="light"
                   color="blue"

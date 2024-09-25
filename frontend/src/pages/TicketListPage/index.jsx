@@ -159,7 +159,7 @@ const TicketListPage = () => {
               {/* Description */}
               <Text size="sm">{ticket.description}</Text>
               {/* Bottom Right: View Details Button */}
-              <Group position="right" mt="md">
+              <Group justify="flex-end" mt="md">
                 <Button
                   variant="light"
                   color="blue"
