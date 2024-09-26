@@ -5,13 +5,7 @@ exports.up = function (knex) {
         table.string('password').notNullable();
         table.string('email').notNullable().unique();
         table.string('phone');
-        table
-            .enu('role', ['admin', 'client'], {
-                useNative: true,
-                enumName: 'user_role',
-                existingType: true,
-            })
-            .notNullable();
+        table.string('role').notNullable();
         table.boolean('is_deleted').defaultTo(false);
         table.timestamps(true, true);
     });
