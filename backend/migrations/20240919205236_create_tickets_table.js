@@ -6,7 +6,7 @@ exports.up = function (knex) {
         table.text('description');
         table.text('remarks');
         table.string('priority').notNullable();
-        table.decimal('estimated_hours', 5, 2);
+        table.decimal('estimated_hours', 5, 2).defaultTo(0);
         table.string('status').notNullable();
         table.string('type').notNullable();
         table.boolean('is_deleted').defaultTo(false);

@@ -1,5 +1,6 @@
 const projectService = require('../services/projectService');
 const ticketService = require('../services/ticketService');
+const deploymentService = require('../services/deploymentService');
 
 exports.getAllProjects = async (req, res, next) => {
     const { user } = req;
@@ -35,6 +36,19 @@ exports.getTicketsByProjectId = async (req, res, next) => {
         res.json({
             message: 'successful',
             tickets,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.getDeploymentsByProjectId = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
+        const deployments = await deploymentService.getDeploymentsByProjectId(projectId);
+        res.json({
+            message: 'successful',
+            deployments,
         });
     } catch (error) {
         next(error);

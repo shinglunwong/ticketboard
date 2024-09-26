@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && sudo rm -rf /var/www/html/ticket && sudo mv dist /var/www/html && sudo mv /var/www/html/dist /var/www/html/ticket"
   },
   "dependencies": {
     "@mantine/core": "^7.12.2",

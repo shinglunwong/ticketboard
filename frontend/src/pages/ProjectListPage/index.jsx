@@ -10,8 +10,16 @@ import {
   Avatar,
   Loader,
   Center,
+  Tooltip,
+  ActionIcon,
 } from "@mantine/core";
-import { IconArrowBack } from "@tabler/icons-react";
+import {
+  IconArrowBack,
+  IconClipboardList,
+  IconCloudUpload,
+  IconCreditCard,
+  IconEdit,
+} from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useFetchProjects } from "./hooks";
 import { getUserRole } from "../../utils/auth";
@@ -80,11 +88,11 @@ const ProjectListPage = () => {
             <Card key={project.id} shadow="sm" padding="lg" radius="md" withBorder>
               <Group>
                 <Avatar color="blue" radius="xl">
-                  {project.title}
+                  <Text size="24">{project.icon}</Text>
                 </Avatar>
                 <div>
                   <Text weight={500} size="lg">
-                    {project.title}
+                    {project.name}
                   </Text>
                   <Text size="sm">{project.description}</Text>
                 </div>
@@ -92,27 +100,51 @@ const ProjectListPage = () => {
               <Badge color={getStatusColor(project.status)} variant="light" mt="md">
                 {project.status}
               </Badge>
-              <Group mt="md" justify="space-between">
+              <Group mt="md" justify="flex-end">
                 {userRole === "admin" ? (
-                  <Button
-                    variant="light"
-                    color="blue"
-                    size="sm"
-                    onClick={() => navigate(`/projects/${project.id}`)}
-                  >
-                    View Details
-                  </Button>
+                  <Tooltip label="Edit" position="top" withArrow>
+                    <ActionIcon
+                      color="grey"
+                      variant="light"
+                      size="lg"
+                      onClick={() => navigate(`/projects/${project.id}`)}
+                    >
+                      <IconEdit size={20} />
+                    </ActionIcon>
+                  </Tooltip>
                 ) : (
                   <div></div>
                 )}
-                <Button
-                  variant="light"
-                  color="blue"
-                  size="sm"
-                  onClick={() => navigate(`/projects/${project.id}/tickets`)}
-                >
-                  Tickets
-                </Button>
+                <Tooltip label="Deployments" position="top" withArrow>
+                  <ActionIcon
+                    color="teal"
+                    variant="light"
+                    size="lg"
+                    onClick={() => navigate(`/projects/${project.id}/deployments`)}
+                  >
+                    <IconCloudUpload size={20} />
+                  </ActionIcon>
+                </Tooltip>
+                <Tooltip label="Payments" position="top" withArrow>
+                  <ActionIcon
+                    color="yellow"
+                    variant="light"
+                    size="lg"
+                    onClick={() => navigate(`/projects/${project.id}/payments`)}
+                  >
+                    <IconCreditCard size={20} />
+                  </ActionIcon>
+                </Tooltip>
+                <Tooltip label="Tickets" position="top" withArrow>
+                  <ActionIcon
+                    color="blue"
+                    variant="light"
+                    size="lg"
+                    onClick={() => navigate(`/projects/${project.id}/tickets`)}
+                  >
+                    <IconClipboardList size={20} />
+                  </ActionIcon>
+                </Tooltip>
               </Group>
             </Card>
           ))}

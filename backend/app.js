@@ -9,8 +9,8 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
+const deploymentRoutes = require('./routes/deploymentRoutes');
 // const paymentRoutes = require('./routes/paymentRoutes');
-// const deploymentRoutes = require('./routes/deploymentRoutes');
 
 // Middlewares
 const { authMiddleware } = require('./middlewares/authMiddleware');
@@ -34,9 +34,9 @@ app.use(authMiddleware);
 app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/api/deployments', deploymentRoutes);
 
 // app.use('/api/payments', paymentRoutes);
-// app.use('/api/deployments', deploymentRoutes);
 
 // Error handling middleware
 app.use(errorMiddleware);

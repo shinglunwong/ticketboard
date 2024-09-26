@@ -1,17 +1,17 @@
 const ticketService = require('../services/ticketService');
 
-exports.getAllTickets = async (req, res, next) => {
-    const { projectId } = req.params;
-    try {
-        const tickets = await ticketService.getAllTickets(projectId);
-        res.json({
-            message: 'successful',
-            tickets,
-        });
-    } catch (error) {
-        next(error);
-    }
-};
+// exports.getAllTickets = async (req, res, next) => {
+//     const { projectId } = req.params;
+//     try {
+//         const tickets = await ticketService.getAllTickets(projectId);
+//         res.json({
+//             message: 'successful',
+//             tickets,
+//         });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 
 exports.getTicketById = async (req, res, next) => {
     try {

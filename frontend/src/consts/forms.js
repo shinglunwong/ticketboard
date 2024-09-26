@@ -31,6 +31,7 @@ export const userForm = {
 export const projectForm = {
     initialValues: {
         user_id: "",
+        icon: "",
         name: "",
         description: "",
         status: "",
@@ -40,6 +41,7 @@ export const projectForm = {
     },
     validate: {
         user_id: (value) => (Number.isInteger(parseInt(value)) ? null : "Responsible user is required"),
+        icon: (value) => (value ? null : "Project icon is required"),
         name: (value) => (value ? null : "Project name is required"),
         description: (value) => (value ? null : "Description is required"),
         status: (value) => (value ? null : "Status is required"),

@@ -52,17 +52,20 @@ A mini project management application that allows users to manage projects, tick
 
 ## Future Development
 
+
 The Mini Project Management System is continuously evolving. Future enhancements include:
 
-	•	Receipt & Invoice Generation
-        •	Implement functionality to generate receipts and invoices in PDF format for payments.
-        •	Allow users to download and print financial documents directly from the application.
-    •	Email Notifications
-    	•	Set up automated email notifications for important events such as:
-        •	Ticket status changes
-        •	Payment due dates and confirmations
-        •	Project updates and deployments
-	•	Docker Services
+- Receipt & Invoice Generation
+  - Implement functionality to generate receipts and invoices in PDF format for payments.
+  - Allow users to download and print financial documents directly from the application.
+- Email Notifications
+  - Set up automated email notifications for important events such as:
+    - Ticket status changes
+    - Payment due dates and confirmations
+    - Project updates and deployments
+- Docker Services
+- Ticket work hour should be confirmed by client: request -> estimate hour -> confirmation -> open
+
 
 ### License
 

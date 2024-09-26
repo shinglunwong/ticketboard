@@ -92,6 +92,7 @@ const ProjectDetailPage = () => {
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack spacing="sm">
             <TextInput label="Responsible User Id" required {...form.getInputProps("user_id")} />
+            <TextInput label="Project Icon" required {...form.getInputProps("icon")} />
             <TextInput label="Project Name" required {...form.getInputProps("name")} />
             <TextInput label="Description" required {...form.getInputProps("description")} />
             <Select

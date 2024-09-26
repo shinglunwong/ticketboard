@@ -10,7 +10,6 @@ exports.getTicketsByProjectId = async (projectId, user) => {
 }
 
 exports.createTicket = (ticketData) => {
-    console.log(ticketData);
     return Ticket.create(ticketData);
 };
 

@@ -5,6 +5,7 @@ exports.up = function (knex) {
         table.increments('id').primary();
         table.integer('user_id').unsigned().notNullable();
         table.string('name').notNullable();
+        table.string('icon').notNullable();
         table.text('description');
         table.string('status').notNullable();
         table.integer('credits').defaultTo(0);
