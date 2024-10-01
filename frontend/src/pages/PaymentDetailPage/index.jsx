@@ -101,11 +101,7 @@ const PaymentDetailPage = () => {
           <Button
             variant="subtle"
             color="gray"
-            onClick={() =>
-              isCreateMode
-                ? navigate(`/projects/${projectId}/payments`)
-                : navigate(`/projects/${projectId}/payments/${paymentId}`)
-            }
+            onClick={() => navigate(`/projects/${projectId}/payments/`)}
           >
             <IconArrowBack size={16} />
           </Button>

@@ -90,7 +90,7 @@ export const useDeletePayment = (projectId, paymentId) => {
 
   return useMutation({
     mutationFn: async () => {
-      const response = await axios.delete(`/projects/${projectId}/payments/${paymentId}`);
+      const response = await axios.post(`/payments/${paymentId}/delete`);
       return response.data;
     },
     onSuccess: () => {
