@@ -51,3 +51,10 @@ export const deploymentSortOptions = [
     { value: "deployed_at_asc", label: "Deployed At (Oldest)" },
     { value: "platform", label: "Platform" },
 ];
+
+export const paymentStatusOptions = [
+    { value: "pending", label: "Pending", color: "grey" },
+    { value: "paid", label: "Paid", color: "green" },
+    { value: "overdue", label: "Overdue", color: "red" },
+    { value: "due", label: "Due", color: "yellow" },
+];

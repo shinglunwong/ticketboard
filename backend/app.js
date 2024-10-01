@@ -11,7 +11,7 @@ const projectRoutes = require('./routes/projectRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
 const deploymentRoutes = require('./routes/deploymentRoutes');
 const creditRoutes = require('./routes/creditRoutes');
-// const paymentRoutes = require('./routes/paymentRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 // Middlewares
 const { authMiddleware } = require('./middlewares/authMiddleware');
@@ -28,7 +28,6 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 
-
 // Apply authMiddleware to all ticket routes
 app.use(authMiddleware);
 
@@ -37,9 +36,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/deployments', deploymentRoutes);
 app.use('/api/credits', creditRoutes);
-
-
-// app.use('/api/payments', paymentRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // Error handling middleware
 app.use(errorMiddleware);

@@ -104,3 +104,31 @@ export const deploymentForm = {
         platform: (value) => (value.trim().length === 0 ? "Platform is required" : null),
     },
 };
+export const paymentForm = {
+    initialValues: {
+        title: "",
+        description: "",
+        amount: 0,
+        status: "",
+        due_date: null,
+        payment_date: null,
+    },
+    validate: {
+        title: (value) =>
+            typeof value === "string" && value.trim().length === 0 ? "Title is required" : null,
+        amount: (value) =>
+            value === undefined || isNaN(value) || Number(value) < 0
+                ? "Valid amount is required"
+                : null,
+        status: (value) =>
+            typeof value === "string" && value.trim().length === 0 ? "Status is required" : null,
+        due_date: (value) =>
+            value === null ? "Due date is required" : null,
+        payment_date: (value) => {
+            if (value !== null && isNaN(new Date(value).getTime())) {
+                return "Valid payment date is required";
+            }
+            return null;
+        },
+    },
+};

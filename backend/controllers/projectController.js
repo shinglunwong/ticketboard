@@ -2,6 +2,7 @@ const projectService = require('../services/projectService');
 const ticketService = require('../services/ticketService');
 const deploymentService = require('../services/deploymentService');
 const creditService = require('../services/creditService');
+const paymentService = require('../services/paymentService');
 
 exports.getAllProjects = async (req, res, next) => {
     const { user } = req;
@@ -53,6 +54,19 @@ exports.getDeploymentsByProjectId = async (req, res, next) => {
         res.json({
             message: 'successful',
             deployments,
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.getPaymentsByProjectId = async (req, res, next) => {
+    try {
+        const projectId = req.params.id;
+        const payments = await paymentService.getPaymentsByProjectId(projectId);
+        res.json({
+            message: 'successful',
+            payments,
         });
     } catch (error) {
         next(error);

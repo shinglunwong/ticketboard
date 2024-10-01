@@ -11,6 +11,8 @@ import TicketListPage from "./pages/TicketListPage";
 import TicketDetailPage from "./pages/TicketDetailPage";
 import DeploymentListPage from "./pages/DeploymentListPage";
 import DeploymentDetailPage from "./pages/DeploymentDetailPage";
+import PaymentListPage from "./pages/PaymentListPage";
+import PaymentDetailPage from "./pages/PaymentDetailPage";
 
 export default function App() {
   return (
@@ -88,6 +90,22 @@ export default function App() {
           element={
             <ProtectedRoute>
               <DeploymentDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/projects/:projectId/payments"
+          element={
+            <ProtectedRoute>
+              <PaymentListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/projects/:projectId/payments/:paymentId"
+          element={
+            <ProtectedRoute>
+              <PaymentDetailPage />
             </ProtectedRoute>
           }
         />
