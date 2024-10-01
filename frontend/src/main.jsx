@@ -10,6 +10,7 @@ import "./index.css";
 // Import Mantine CSS
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import "@mantine/dates/styles.css";
 
 // Set up axios defaults
 axios.defaults.baseURL = import.meta.env.VITE_API_URL;

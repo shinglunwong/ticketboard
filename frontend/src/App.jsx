@@ -9,7 +9,8 @@ import ProjectListPage from "./pages/ProjectListPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import TicketListPage from "./pages/TicketListPage";
 import TicketDetailPage from "./pages/TicketDetailPage";
-import DeploymentListPage from "./pages/DeploymentPage";
+import DeploymentListPage from "./pages/DeploymentListPage";
+import DeploymentDetailPage from "./pages/DeploymentDetailPage";
 
 export default function App() {
   return (
@@ -79,6 +80,14 @@ export default function App() {
           element={
             <ProtectedRoute>
               <DeploymentListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/projects/:projectId/deployments/:deploymentId"
+          element={
+            <ProtectedRoute>
+              <DeploymentDetailPage />
             </ProtectedRoute>
           }
         />

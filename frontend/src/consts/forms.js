@@ -80,3 +80,16 @@ export const ticketForm = {
                 : "Type incorrect",
     },
 }
+
+export const deploymentForm = {
+    initialValues: {
+        title: "",
+        description: "",
+        platform: "",
+        deployed_at: "",
+    },
+    validate: {
+        title: (value) => (value.trim().length === 0 ? "Title is required" : null),
+        platform: (value) => (value.trim().length === 0 ? "Platform is required" : null),
+    },
+};

@@ -58,7 +58,6 @@ export const useCreateUser = () => {
 
   return useMutation({
     mutationFn: async (values) => {
-      console.log(values);
       const response = await axios.post(`/users/create`, values);
       return response.data;
     },

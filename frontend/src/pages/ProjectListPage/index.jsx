@@ -97,10 +97,15 @@ const ProjectListPage = () => {
                   <Text size="sm">{project.description}</Text>
                 </div>
               </Group>
-              <Badge color={getStatusColor(project.status)} variant="light" mt="md">
-                {project.status}
-              </Badge>
-              <Group mt="md" justify="flex-end">
+              <Group mt="md">
+                <Badge color={getStatusColor(project.status)} variant="light">
+                  {project.status}
+                </Badge>
+                <Badge color="blue" variant="light">
+                  {project.credits} credits
+                </Badge>
+              </Group>
+              <Group mt="xl" justify="flex-end">
                 {userRole === "admin" ? (
                   <Tooltip label="Edit" position="top" withArrow>
                     <ActionIcon
@@ -135,16 +140,14 @@ const ProjectListPage = () => {
                     <IconCreditCard size={20} />
                   </ActionIcon>
                 </Tooltip>
-                <Tooltip label="Tickets" position="top" withArrow>
-                  <ActionIcon
-                    color="blue"
-                    variant="light"
-                    size="lg"
-                    onClick={() => navigate(`/projects/${project.id}/tickets`)}
-                  >
-                    <IconClipboardList size={20} />
-                  </ActionIcon>
-                </Tooltip>
+                <Button
+                  leftSection={<IconClipboardList size={20} />}
+                  color="blue"
+                  variant="light"
+                  onClick={() => navigate(`/projects/${project.id}/tickets`)}
+                >
+                  Tickets
+                </Button>
               </Group>
             </Card>
           ))}

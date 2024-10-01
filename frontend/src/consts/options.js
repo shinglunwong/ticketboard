@@ -41,9 +41,9 @@ export const ticketPriorityOptions = [
 ];
 
 export const deploymentPlatformOptions = [
-    { value: "aws", label: "AWS", color: "orange" },
-    { value: "azure", label: "Azure", color: "blue" },
-    { value: "gcp", label: "GCP", color: "cyan" },
+    { value: "AWS", label: "AWS", color: "orange" },
+    { value: "Azure", label: "Azure", color: "blue" },
+    { value: "GCP", label: "GCP", color: "cyan" },
 ];
 
 export const deploymentSortOptions = [

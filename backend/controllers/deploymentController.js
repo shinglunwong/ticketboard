@@ -15,8 +15,8 @@ const deploymentService = require('../services/deploymentService');
 
 exports.getDeploymentById = async (req, res, next) => {
     try {
-        const deploymentId = req.params.id;
-        const deployment = await deploymentService.getDeploymentById(deploymentId);
+        const { id } = req.params;
+        const deployment = await deploymentService.getDeploymentById(id);
         res.json({
             message: 'successful',
             deployment
