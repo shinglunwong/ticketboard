@@ -53,6 +53,17 @@ export const projectForm = {
     },
 };
 
+export const creditForm = {
+    initialValues: {
+        amount: 0,
+        title: "",
+    },
+    validate: {
+        amount: (value) => (Number.isInteger(parseInt(value)) ? null : "Amount must be integer"),
+        title: (value) => (value ? null : "Title is required"),
+    },
+};
+
 export const ticketForm = {
     initialValues: {
         title: "",

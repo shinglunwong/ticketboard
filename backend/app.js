@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
 const deploymentRoutes = require('./routes/deploymentRoutes');
+const creditRoutes = require('./routes/creditRoutes');
 // const paymentRoutes = require('./routes/paymentRoutes');
 
 // Middlewares
@@ -35,6 +36,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/deployments', deploymentRoutes);
+app.use('/api/credits', creditRoutes);
+
 
 // app.use('/api/payments', paymentRoutes);
 

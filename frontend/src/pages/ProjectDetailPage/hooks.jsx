@@ -1,6 +1,6 @@
 // src/pages/ProjectDetailPage/hooks.js
 
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 import { useNavigate } from "react-router-dom";
 import { IconCheck, IconTrash, IconX } from "@tabler/icons-react";
@@ -107,6 +107,36 @@ export const useDeleteProject = (id) => {
     onError: (error) => {
       notifications.show({
         title: "Error Deleting Project",
+        message: error.response?.data?.message || error.message,
+        color: "red",
+        icon: <IconX size={16} />,
+        position: "bottom-center",
+      });
+    },
+  });
+};
+
+export const useCreateCredit = (projectId) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (values) => {
+      const response = await axios.post(`/credits`, values);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["project", projectId]);
+      notifications.show({
+        title: "Credit Updated",
+        message: "The credit has been updated successfully.",
+        color: "teal",
+        icon: <IconCheck size={16} />,
+        position: "bottom-center",
+      });
+    },
+    onError: (error) => {
+      notifications.show({
+        title: "Error Updating Credit",
         message: error.response?.data?.message || error.message,
         color: "red",
         icon: <IconX size={16} />,
