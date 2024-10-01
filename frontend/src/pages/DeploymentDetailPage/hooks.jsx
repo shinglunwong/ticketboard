@@ -29,7 +29,7 @@ export const useCreateDeployment = (projectId) => {
 
   return useMutation({
     mutationFn: async (newDeployment) => {
-      const response = await axios.post(`/deployments`, newDeployment);
+      const response = await axios.post(`/deployments/create`, newDeployment);
       return response.data;
     },
     onSuccess: () => {

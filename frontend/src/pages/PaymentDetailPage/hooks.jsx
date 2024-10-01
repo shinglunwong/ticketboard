@@ -28,7 +28,7 @@ export const useCreatePayment = (projectId) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (paymentData) => {
-      const response = await axios.post(`/payments`, paymentData);
+      const response = await axios.post(`/payments/create`, paymentData);
       return response.data.payment;
     },
     onSuccess: () => {

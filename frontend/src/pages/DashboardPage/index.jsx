@@ -27,6 +27,11 @@ const DashboardPage = () => {
               Users
             </Button>
           )}
+          {userRole === "admin" && (
+            <Button fullWidth variant="filled" color="grey" onClick={() => navigate("/configs")}>
+              Configs
+            </Button>
+          )}
         </Stack>
         <Divider my={20} />
         <Button fullWidth variant="light" color="red" onClick={handleLogout}>

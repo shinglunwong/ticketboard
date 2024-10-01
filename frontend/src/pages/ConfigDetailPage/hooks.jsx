@@ -4,77 +4,46 @@ import { useNavigate } from "react-router-dom";
 import { IconCheck, IconTrash, IconX } from "@tabler/icons-react";
 import axios from "axios";
 
-export const useFetchTicket = (ticketId) => {
+export const useFetchConfig = (id) => {
   return useQuery({
-    queryKey: ["ticket", ticketId],
+    queryKey: ["config", id],
     queryFn: async () => {
-      const response = await axios.get(`/tickets/${ticketId}`);
-      return response?.data?.ticket;
+      const response = await axios.get(`/configs/${id}`);
+      return response.data;
     },
-    enabled: !!ticketId && ticketId !== "create",
+    enabled: id !== "create",
     onError: (err) => {
       notifications.show({
-        title: "Error Fetching Ticket",
+        title: "Error Fetching Config",
         message: err.response?.data?.message || err.message,
         color: "red",
         position: "bottom-center",
-        icon: <IconX size={16} />,
       });
     },
   });
 };
 
-export const useUpdateTicket = (ticketId) => {
+export const useUpdateConfig = (id) => {
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (values) => {
-      const response = await axios.post(`/tickets/${ticketId}`, values);
-      return response.data;
-    },
-    onSuccess: (data, variables) => {
-      notifications.show({
-        title: "Ticket Updated",
-        message: "The ticket has been updated successfully.",
-        color: "teal",
-        icon: <IconCheck size={16} />,
-        position: "bottom-center",
-      });
-      navigate(`/projects/${variables.project_id}/tickets`);
-    },
-    onError: (error) => {
-      notifications.show({
-        title: "Error Updating Ticket",
-        message: error.response?.data?.message || error.message,
-        color: "red",
-        icon: <IconX size={16} />,
-        position: "bottom-center",
-      });
-    },
-  });
-};
-
-export const useCreateTicket = (projectId) => {
-  const navigate = useNavigate();
-
-  return useMutation({
-    mutationFn: async (values) => {
-      const response = await axios.post(`/tickets/create`, { project_id: projectId, ...values });
+      const response = await axios.post(`/configs/${id}`, values);
       return response.data;
     },
     onSuccess: () => {
       notifications.show({
-        title: "Ticket Created",
-        message: "The ticket has been created successfully.",
+        title: "Config Updated",
+        message: "The config has been updated successfully.",
         color: "teal",
         icon: <IconCheck size={16} />,
         position: "bottom-center",
       });
-      navigate(`/projects/${projectId}/tickets`);
+      navigate("/configs");
     },
     onError: (error) => {
       notifications.show({
-        title: "Error Creating Ticket",
+        title: "Error Updating Config",
         message: error.response?.data?.message || error.message,
         color: "red",
         icon: <IconX size={16} />,
@@ -84,27 +53,57 @@ export const useCreateTicket = (projectId) => {
   });
 };
 
-export const useDeleteTicket = (id, projectId) => {
+export const useCreateConfig = () => {
+  const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: async (values) => {
+      const response = await axios.post(`/configs/create`, values);
+      return response.data;
+    },
+    onSuccess: () => {
+      notifications.show({
+        title: "Config Created",
+        message: "The config has been created successfully.",
+        color: "teal",
+        icon: <IconCheck size={16} />,
+        position: "bottom-center",
+      });
+      navigate("/configs");
+    },
+    onError: (error) => {
+      notifications.show({
+        title: "Error Creating Config",
+        message: error.response?.data?.message || error.message,
+        color: "red",
+        icon: <IconX size={16} />,
+        position: "bottom-center",
+      });
+    },
+  });
+};
+
+export const useDeleteConfig = (id) => {
   const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async () => {
-      const response = await axios.post(`/tickets/${id}/delete`);
+      const response = await axios.post(`/configs/${id}/delete`);
       return response.data;
     },
     onSuccess: () => {
       notifications.show({
-        title: "Ticket Deleted",
-        message: "The ticket has been deleted successfully.",
+        title: "Config Deleted",
+        message: "The config has been deleted successfully.",
         color: "teal",
         icon: <IconTrash size={16} />,
         position: "bottom-center",
       });
-      navigate(`/projects/${projectId}/tickets`);
+      navigate("/configs");
     },
     onError: (error) => {
       notifications.show({
-        title: "Error Deleting Ticket",
+        title: "Error Deleting Config",
         message: error.response?.data?.message || error.message,
         color: "red",
         icon: <IconX size={16} />,

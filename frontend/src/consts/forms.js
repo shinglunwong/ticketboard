@@ -28,6 +28,17 @@ export const userForm = {
     },
 };
 
+export const configForm = {
+    initialValues: {
+        key: "",
+        value: "",
+    },
+    validate: {
+        key: (value) => (value ? null : "Key is required"),
+        value: (value) => (value ? null : "Value is required"),
+    },
+};
+
 export const projectForm = {
     initialValues: {
         user_id: "",

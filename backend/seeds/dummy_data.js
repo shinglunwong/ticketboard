@@ -8,6 +8,7 @@ exports.seed = async function (knex) {
     await knex('deployments').del();
     await knex('projects').del();
     await knex('users').del();
+    await knex('configs').del();
 
     // Hash passwords
     const hashedPassword1 = await bcrypt.hash('password123', 10); // For adminuser
@@ -487,4 +488,19 @@ exports.seed = async function (knex) {
     ];
 
     await knex('credits').insert(credits);
+
+    const configs = [
+        {
+            key: 'name',
+            value: 'brad',
+            is_deleted: false,
+        },
+        {
+            key: 'phone',
+            value: '1234123412',
+            is_deleted: false,
+        },
+    ]
+
+    await knex('configs').insert(configs);
 };

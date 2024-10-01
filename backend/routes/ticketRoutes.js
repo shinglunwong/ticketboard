@@ -5,7 +5,7 @@ const { adminMiddleware } = require('../middlewares/adminMiddleware');
 
 // router.get('/', ticketController.getAllTickets);
 router.get('/:id', ticketController.getTicketById);
-router.post('/', ticketController.createTicket);
+router.post('/create', ticketController.createTicket);
 router.post('/:id', ticketController.updateTicket);
 router.post('/:id/delete', adminMiddleware, ticketController.deleteTicket);
 

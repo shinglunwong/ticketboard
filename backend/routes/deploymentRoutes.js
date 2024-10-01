@@ -5,7 +5,7 @@ const { adminMiddleware } = require('../middlewares/adminMiddleware');
 
 // router.get('/', deploymentController.getAllDeployments);
 router.get('/:id', deploymentController.getDeploymentById);
-router.post('/', deploymentController.createDeployment);
+router.post('/create', deploymentController.createDeployment);
 router.post('/:id', deploymentController.updateDeployment);
 router.post('/:id/delete', adminMiddleware, deploymentController.deleteDeployment);
 

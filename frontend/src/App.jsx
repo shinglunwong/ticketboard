@@ -13,6 +13,8 @@ import DeploymentListPage from "./pages/DeploymentListPage";
 import DeploymentDetailPage from "./pages/DeploymentDetailPage";
 import PaymentListPage from "./pages/PaymentListPage";
 import PaymentDetailPage from "./pages/PaymentDetailPage";
+import ConfigListPage from "./pages/ConfigListPage";
+import ConfigDetailPage from "./pages/ConfigDetailPage";
 
 export default function App() {
   return (
@@ -42,6 +44,22 @@ export default function App() {
           element={
             <ProtectedRoute>
               <UserDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/configs"
+          element={
+            <ProtectedRoute>
+              <ConfigListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/configs/:id"
+          element={
+            <ProtectedRoute>
+              <ConfigDetailPage />
             </ProtectedRoute>
           }
         />
