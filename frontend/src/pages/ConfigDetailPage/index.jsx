@@ -11,6 +11,7 @@ import {
   Center,
   PasswordInput,
   Divider,
+  Textarea,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconArrowBack, IconCheck, IconTrash } from "@tabler/icons-react";
@@ -91,7 +92,13 @@ const ConfigDetailPage = () => {
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack spacing="sm">
             <TextInput label="Key" required {...form.getInputProps("key")} />
-            <TextInput label="Value" required {...form.getInputProps("value")} />
+            <Textarea
+              label="Value"
+              required
+              {...form.getInputProps("value")}
+              autosize
+              minRows={4}
+            />
           </Stack>
 
           <Group justify="space-between" mt="xl">

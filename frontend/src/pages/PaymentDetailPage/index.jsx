@@ -64,6 +64,7 @@ const PaymentDetailPage = () => {
   useEffect(() => {
     if (!isCreateMode && payment) {
       form.setValues({
+        long_id: payment.long_id,
         title: payment.title,
         description: payment.description,
         amount: payment.amount,
@@ -110,6 +111,13 @@ const PaymentDetailPage = () => {
 
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack spacing="sm">
+            <TextInput
+              label="Long Id"
+              placeholder="Invoice / Receipt Number"
+              required
+              {...form.getInputProps("long_id")}
+              disabled={!isCreateMode && role !== "admin"}
+            />
             <TextInput
               label="Title"
               placeholder="Payment Title"

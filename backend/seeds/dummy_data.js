@@ -199,6 +199,7 @@ exports.seed = async function (knex) {
         {
             id: 1,
             project_id: 1,
+            long_id: 'INV-001',
             title: 'Initial Payment',
             description: 'Payment for Project Alpha',
             amount: 1000.0,
@@ -210,6 +211,7 @@ exports.seed = async function (knex) {
         {
             id: 2,
             project_id: 2,
+            long_id: 'INV-002',
             title: 'Down Payment',
             description: 'Initial payment for Project Beta',
             amount: 500.0,
@@ -221,6 +223,7 @@ exports.seed = async function (knex) {
         {
             id: 3,
             project_id: 3,
+            long_id: 'INV-003',
             title: 'Milestone 1',
             description: 'First milestone payment for Project Gamma',
             amount: 1500.0,
@@ -232,6 +235,7 @@ exports.seed = async function (knex) {
         {
             id: 4,
             project_id: 4,
+            long_id: 'INV-004',
             title: 'Final Payment',
             description: 'Final payment for Project Delta',
             amount: 2000.0,
@@ -243,6 +247,7 @@ exports.seed = async function (knex) {
         {
             id: 5,
             project_id: 5,
+            long_id: 'INV-005',
             title: 'Initial Payment',
             description: 'Initial payment for Project Epsilon',
             amount: 800.0,
@@ -498,6 +503,11 @@ exports.seed = async function (knex) {
         {
             key: 'phone',
             value: '1234123412',
+            is_deleted: false,
+        },
+        {
+            key: 'email',
+            value: 'example@gmail.com',
             is_deleted: false,
         },
     ]

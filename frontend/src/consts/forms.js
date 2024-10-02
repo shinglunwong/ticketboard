@@ -117,6 +117,7 @@ export const deploymentForm = {
 };
 export const paymentForm = {
     initialValues: {
+        long_id: "",
         title: "",
         description: "",
         amount: 0,
@@ -125,6 +126,8 @@ export const paymentForm = {
         payment_date: null,
     },
     validate: {
+        long_id: (value) =>
+            typeof value === "string" && value.trim().length === 0 ? "Long id is required" : null,
         title: (value) =>
             typeof value === "string" && value.trim().length === 0 ? "Title is required" : null,
         amount: (value) =>

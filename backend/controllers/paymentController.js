@@ -93,11 +93,14 @@ exports.getPdf = async (req, res, next) => {
 
         // Define payment details
         const paymentDetail = {
+            long_id: payment.long_id,
             title: payment.title,
             description: payment.description || '-',
             amount: payment.amount,
             dueDate: payment.due_date,
+            status: payment.status,
         };
+
         // Generate and send PDF
         generatePdf(invoiceConfig, clientDetail, paymentDetail, res);
     } catch (error) {
