@@ -22,3 +22,29 @@ export const useFetchPayments = (projectId) => {
     enabled: !!projectId,
   });
 };
+
+export const handleDownloadPDF = async (paymentId) => {
+  try {
+    const response = await axios.get(`/payments/${paymentId}/pdf`, {
+      responseType: "blob", // Important for handling binary data
+    });
+
+    // Create a new Blob object using the response data of the onload object
+    const blob = new Blob([response.data], { type: "application/pdf" });
+
+    // Create a link element
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = `invoice_${paymentId}.pdf`; // Set the file name
+
+    // Append to the document and trigger the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up and remove the link
+    link.parentNode.removeChild(link);
+  } catch (error) {
+    console.error("Error downloading PDF:", error);
+    // Optionally, display an error notification to the user
+  }
+};

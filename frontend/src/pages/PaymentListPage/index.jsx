@@ -10,9 +10,9 @@ import {
   Center,
   ActionIcon,
 } from "@mantine/core";
-import { IconArrowBack, IconPlus, IconEdit } from "@tabler/icons-react";
+import { IconArrowBack, IconPlus, IconEdit, IconDownload } from "@tabler/icons-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFetchPayments } from "./hooks";
+import { handleDownloadPDF, useFetchPayments } from "./hooks";
 import { paymentStatusOptions } from "../../consts/options";
 import { getUserRole } from "../../utils/auth";
 
@@ -94,6 +94,17 @@ const PaymentListPage = () => {
             >
               <IconEdit size={16} />
             </ActionIcon>
+            {(payment.status === "paid" || payment.status === "due") && (
+              <ActionIcon
+                color="green"
+                variant="light"
+                size="lg"
+                onClick={() => handleDownloadPDF(payment.id)}
+                // aria-label={`Download PDF for ${project.name}`}
+              >
+                <IconDownload size={16} />
+              </ActionIcon>
+            )}
           </Group>
         </Table.Td>
       )}

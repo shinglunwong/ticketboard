@@ -40,7 +40,6 @@ const ConfigDetailPage = () => {
   const [deleteModalOpened, setDeleteModalOpened] = useState(false);
 
   const handleSubmit = (values) => {
-    console.log(values);
     if (isCreateMode) {
       createMutation.mutate(values);
     } else {

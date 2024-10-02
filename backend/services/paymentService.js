@@ -20,3 +20,8 @@ exports.updatePayment = (id, paymentData) => {
 exports.deletePayment = (id) => {
     return Payment.delete(id);
 };
+
+exports.getPdf = async (id) => {
+    const payment = await Payment.findById(id);
+
+}

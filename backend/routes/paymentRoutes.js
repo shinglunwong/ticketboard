@@ -8,6 +8,6 @@ router.post('/create', adminMiddleware, paymentController.createPayment);
 router.post('/:id', adminMiddleware, paymentController.updatePayment);
 router.post('/:id/delete', adminMiddleware, paymentController.deletePayment);
 
-// router.get('/:id/pdf', adminMiddleware, paymentController.getPayments);
+router.get('/:id/pdf', adminMiddleware, paymentController.getPdf);
 
 module.exports = router;

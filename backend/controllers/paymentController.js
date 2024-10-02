@@ -1,4 +1,9 @@
 const paymentService = require('../services/paymentService');
+const configService = require('../services/configService');
+const Payment = require('../models/Payment');
+const Project = require('../models/Project');
+const User = require('../models/User');
+const generatePdf = require('../utils/generatePdf');
 
 exports.getPaymentById = async (req, res, next) => {
     try {
@@ -49,5 +54,54 @@ exports.deletePayment = async (req, res, next) => {
         });
     } catch (error) {
         next(error);
+    }
+};
+
+
+exports.getPdf = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        // Fetch payment details
+        const payment = await Payment.findById(id);
+        if (!payment) {
+            return res.status(404).json({ message: 'Payment not found.' });
+        }
+
+        // Fetch project details
+        const project = await Project.findByProjectId(payment.project_id);
+        if (!project) {
+            return res.status(404).json({ message: 'Project not found.' });
+        }
+
+        // Fetch invoice config
+        const invoiceConfig = await configService.getInvoiceConfig();
+
+        // Fetch client details
+        const client = await User.findById(project.user_id);
+        if (!client) {
+            return res.status(404).json({ message: 'Client not found.' });
+        }
+
+
+        // Define client details
+        const clientDetail = {
+            username: client.username || '-',
+            phone: client.phone || '-',
+            email: client.email || '-',
+        };
+
+        // Define payment details
+        const paymentDetail = {
+            title: payment.title,
+            description: payment.description || '-',
+            amount: payment.amount,
+            dueDate: payment.due_date,
+        };
+        // Generate and send PDF
+        generatePdf(invoiceConfig, clientDetail, paymentDetail, res);
+    } catch (error) {
+        console.error('Error generating PDF:', error);
+        res.status(500).json({ message: 'Failed to generate PDF.' });
     }
 };

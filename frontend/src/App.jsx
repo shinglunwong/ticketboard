@@ -34,7 +34,7 @@ export default function App() {
         <Route
           path="/users"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <UserListPage />
             </ProtectedRoute>
           }
@@ -42,7 +42,7 @@ export default function App() {
         <Route
           path="/users/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <UserDetailPage />
             </ProtectedRoute>
           }
@@ -50,7 +50,7 @@ export default function App() {
         <Route
           path="/configs"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <ConfigListPage />
             </ProtectedRoute>
           }
@@ -58,7 +58,7 @@ export default function App() {
         <Route
           path="/configs/:id"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <ConfigDetailPage />
             </ProtectedRoute>
           }
@@ -106,7 +106,7 @@ export default function App() {
         <Route
           path="/projects/:projectId/deployments/:deploymentId"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <DeploymentDetailPage />
             </ProtectedRoute>
           }
@@ -122,11 +122,12 @@ export default function App() {
         <Route
           path="/projects/:projectId/payments/:paymentId"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute adminOnly>
               <PaymentDetailPage />
             </ProtectedRoute>
           }
         />
+        <Route path="/unauthorized" element={<h1>Unauthorized</h1>} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </Router>

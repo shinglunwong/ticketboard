@@ -20,3 +20,17 @@ exports.updateConfig = (id, configData) => {
 exports.deleteConfig = (id) => {
     return Config.delete(id);
 }
+
+exports.getInvoiceConfig = async () => {
+    const invoiceConfig = {
+        name: "",
+        phone: "",
+        email: "",
+        remarks: "",
+    }
+    const allConfig = await Config.findAll();
+    allConfig.forEach(config => {
+        invoiceConfig[config.key] = config.value;
+    });
+    return invoiceConfig;
+}
