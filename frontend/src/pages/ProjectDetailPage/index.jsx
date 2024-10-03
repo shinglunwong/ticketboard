@@ -234,7 +234,7 @@ const ProjectDetailPage = () => {
             <Title order={3} mb="md">
               Credit History
             </Title>
-            {projectData.credits && projectData.credits.length > 0 ? (
+            {projectData && projectData.credits && projectData.credits.length > 0 ? (
               <Table highlightOnHover>
                 <Table.Thead>
                   <Table.Tr>
