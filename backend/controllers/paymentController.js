@@ -83,26 +83,8 @@ exports.getPdf = async (req, res, next) => {
             return res.status(404).json({ message: 'Client not found.' });
         }
 
-
-        // Define client details
-        const clientDetail = {
-            username: client.username || '-',
-            phone: client.phone || '-',
-            email: client.email || '-',
-        };
-
-        // Define payment details
-        const paymentDetail = {
-            long_id: payment.long_id,
-            title: payment.title,
-            description: payment.description || '-',
-            amount: payment.amount,
-            dueDate: payment.due_date,
-            status: payment.status,
-        };
-
         // Generate and send PDF
-        generatePdf(invoiceConfig, clientDetail, paymentDetail, res);
+        generatePdf({ invoiceConfig, client, payment, project }, res);
     } catch (error) {
         console.error('Error generating PDF:', error);
         res.status(500).json({ message: 'Failed to generate PDF.' });

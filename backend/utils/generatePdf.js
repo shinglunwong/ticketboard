@@ -1,12 +1,15 @@
 
 const PDFDocument = require('pdfkit');
+const dayjs = require('dayjs');
 
-const generatePdf = (invoiceConfig, clientDetail, paymentDetail, res) => {
+const generatePdf = (details, res) => {
+
+    const { invoiceConfig, client, payment, project } = details;
     const doc = new PDFDocument({ size: 'A4', margin: 50 });
 
     // Set response headers
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename=invoice_${paymentDetail.title.replace(/\s+/g, '_')}.pdf`);
+    res.setHeader('Content-Disposition', `attachment; filename=invoice_${payment.title.replace(/\s+/g, '_')}.pdf`);
 
     // Pipe the PDF into the response
     doc.pipe(res);
@@ -23,37 +26,49 @@ const generatePdf = (invoiceConfig, clientDetail, paymentDetail, res) => {
         .text(invoiceConfig.name, 150, 45, { align: 'right' })
         .fontSize(10)
         .fillColor(textDark)
-        .text(`Phone: ${invoiceConfig.phone}`, 400, 65, { align: 'right' })
-        .text(`Phone: ${invoiceConfig.phone}`, 400, 65, { align: 'right' })
-        .text(`Email: ${invoiceConfig.email}`, 400, 75, { align: 'right' })
-        .text(`Email: ${invoiceConfig.email}`, 400, 75, { align: 'right' })
+        .text(`Phone: ${invoiceConfig.phone}`, 350, 67, { align: 'right' })
+        .text(`Email: ${invoiceConfig.email}`, 350, 78, { align: 'right' })
         .moveDown();
 
-    const invoiceTitle = paymentDetail.status === 'paid' ? 'RECEIPT' : paymentDetail.status === 'due' ? 'INVOICE' : '???';
+    const invoiceTitle = payment.status === 'paid' ? 'RECEIPT' : payment.status === 'due' ? 'INVOICE' : '???';
     // Invoice Title
     doc
         .fontSize(25)
         .fillColor(textBlue)
-        .text(`${invoiceTitle} ${paymentDetail.long_id}`, 50, 120)
+        .text(`${invoiceTitle} ${payment.long_id}`, 50, 120)
         .moveDown();
 
+
+    let billingY = 195;
     // Billing Information
     doc
         .fontSize(12)
         .fillColor(textDark)
         .text('Bill To:', 50, 170)
         .font('Helvetica-Bold')
-        .text(clientDetail.username, 50, 185)
-        .font('Helvetica')
-        .text(`Phone: ${clientDetail.phone}`, 50, 205)
-        .text(`Email: ${clientDetail.email}`, 50, 220)
+        .text(project.bill_to_name || client.username, 50, billingY)
+        .font('Helvetica');
+    billingY += 20;
+
+    if (project.bill_to_address) {
+        doc
+            .text(`${project.bill_to_address}`, 50, billingY, { width: 220 }).moveDown(0.2);
+    }
+
+    doc
+        .text(`${project.bill_to_phone || client.phone}`, 50)
+        .moveDown(0.2);
+    doc.text(`${project.bill_to_email || client.email}`, 50)
         .moveDown();
 
     // Invoice Details
+    const invoiceDate = dayjs(payment.due_date).subtract(14, 'days').format('YYYY-MM-DD');
+    const dueDate = dayjs(payment.due_date).format('YYYY-MM-DD');
     doc
         .fontSize(12)
-        .text(`Invoice Date: ${new Date().toLocaleDateString()}`, 400, 205, { align: 'right' })
-        .text(`Due Date: ${new Date(paymentDetail.dueDate).toLocaleDateString()}`, 400, 220, { align: 'right' })
+        .text(`Invoice Date: ${invoiceDate}`, 400, billingY, { align: 'right' })
+        .moveDown(0.2);
+    doc.text(`Due Date: ${dueDate}`, 400, null, { align: 'right' })
         .moveDown();
 
     // Invoice Table Header
@@ -75,9 +90,9 @@ const generatePdf = (invoiceConfig, clientDetail, paymentDetail, res) => {
     // Invoice Table Content
     const items = [
         {
-            item: paymentDetail.title,
-            description: paymentDetail.description,
-            amount: `$${Number(paymentDetail.amount).toFixed(2)}`
+            item: payment.title,
+            description: payment.description,
+            amount: `$${Number(payment.amount).toFixed(2)}`
         }
     ];
 
@@ -104,7 +119,7 @@ const generatePdf = (invoiceConfig, clientDetail, paymentDetail, res) => {
         .font('Helvetica-Bold')
         .fillColor(textDark)
         .text('Total:', 360, positionY + 10)
-        .text(`$${Number(paymentDetail.amount).toFixed(2)}`, amountX, positionY + 10, { align: 'right' });
+        .text(`$${Number(payment.amount).toFixed(2)}`, amountX, positionY + 10, { align: 'right' });
 
 
     // Remarks

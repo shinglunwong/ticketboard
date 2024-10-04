@@ -13,6 +13,7 @@ import {
   Grid,
   Table,
   Text,
+  Divider,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconArrowBack, IconCheck, IconTrash } from "@tabler/icons-react";
@@ -153,6 +154,18 @@ const ProjectDetailPage = () => {
                   required
                   min={0}
                   {...projectFormInstance.getInputProps("max_credit_duration")}
+                />
+                <Divider mt={16} label="Bill To Information " />
+
+                <TextInput label="Phone" {...projectFormInstance.getInputProps("bill_to_phone")} />
+                <TextInput
+                  label="Address"
+                  {...projectFormInstance.getInputProps("bill_to_address")}
+                />
+                <TextInput label="Email" {...projectFormInstance.getInputProps("bill_to_email")} />
+                <TextInput
+                  label="Name"
+                  {...projectFormInstance.getInputProps("bill_to_client_name")}
                 />
               </Stack>
 
